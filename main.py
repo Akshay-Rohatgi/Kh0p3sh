@@ -1,7 +1,7 @@
-import os
 import getpass
-user = getpass.getuser()
+import os
 
+user = getpass.getuser()
 
 print('''
 ==========================================================
@@ -16,6 +16,7 @@ print('''
 ==========================================================
 
     ''')
+
 print('Welcome to Kh0p3sh, a commandline tool built for penetration testers.')
 print('======================================================================')
 
@@ -46,9 +47,16 @@ while True:
     findSUID - will list all SUID files found
     findGUID - will list all GUID files found
     getRules - will list all iptables rules
-    get
+    memCheck - will check for any memory security measures in place
     ==============================================
 
+    ==============================================
+    Persistence Commands
+    ----------------------------------------------
+    bashBack - will attempt to setup a bash backdoor
+    ncBack - will attempt to setup a netcat backdoor
+    createSUID - will attempt to create a file with SUID priveleges
+    ==============================================    
         ''')
     elif str(command) == 'exit':
         print('Goodbye!')
