@@ -1,6 +1,14 @@
 import os
 import subprocess
 
+def line_in_file(path, string):
+    try:
+        with open(path, 'r') as handle:
+            for line in handle:
+                if string in line:
+                    return True
+    except: return False
+
 def ufw_check():
     try:
         handle = subprocess.getoutput("sudo ufw status | grep 'Status: active'")
@@ -35,4 +43,11 @@ def rules_check():
             return rules_found
         else:
             return False
+    except: return False
+
+def mem_check():
+    try:
+        messages = []
+        if line_in_file('/proc/sys/kernel/randomize_va_space', '1') == True or line_in_file('/proc/sys/kernel/randomize_va_space', '2') == True:
+            messages.append('Address space layout randomization is enabled')
     except: return False
