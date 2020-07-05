@@ -49,7 +49,7 @@ while True:
     findSUID - will list all SUID files found
     findSGID - will list all SGID files found
     getRules - will list all iptables rules
-    memCheck - will check for any memory security measures in place (useful for pwning)
+    memCheck - will check for any memory security measures in place (useful for pwning or privelage escalation)
     ==============================================
 
     ==============================================
@@ -99,8 +99,8 @@ while True:
             print(rules_check())
             print('======================================================')
 
-    #elif str(command) == 'memCheck':
-        
+    elif str(command) == 'memCheck':
+        print(mem_check())
 
     else:
         print('Command does not exist! try the "help" command')

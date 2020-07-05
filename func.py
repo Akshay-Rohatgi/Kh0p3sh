@@ -9,6 +9,12 @@ def line_in_file(path, string):
                     return True
     except: return False
 
+def get_file_content(path):
+    try:
+        with open(path, 'r') as handle:
+            return handle
+    except: return False
+
 def ufw_check():
     try:
         handle = subprocess.getoutput("sudo ufw status | grep 'Status: active'")
@@ -49,5 +55,20 @@ def mem_check():
     try:
         messages = []
         if line_in_file('/proc/sys/kernel/randomize_va_space', '1') == True or line_in_file('/proc/sys/kernel/randomize_va_space', '2') == True:
-            messages.append('Address space layout randomization is enabled')
+            messages.append('''[*] Address space layout randomization is enabled''')
+        else:
+            messages.append('''[ ] Address space layout randomization is enabled''')
+        if get_file_content('/proc/sys/vm/swappiness') == False:
+            messages.append('''[ ] VM swappiness is enabled''')
+        else:
+            messages.append('''[*] VM swappiness is enabled''')
+        if line_in_file('/proc/sys/kernel/exec-shield', '1') == True:
+            messages.append('''[*] The kernel exec shield is enabled''')
+        else:
+            messages.append('''[ ] The kernel exec shield is enabled''')
+        if line_in_file('/proc/sys/kernel/exec-shield-randomize', '1') == True:
+            messages.append('''[*]  Kernel exec shield randomization is enabled''')
+        else:
+            messages.append('''[ ] Kernel exec shield randomization is enabled''')
+        return messages
     except: return False
