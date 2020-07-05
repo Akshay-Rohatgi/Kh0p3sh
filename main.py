@@ -55,9 +55,9 @@ while True:
     ==============================================
     Persistence Commands
     ----------------------------------------------
-    bashBack - will attempt to setup a bash backdoor
-    ncBack - will attempt to setup a netcat backdoor
+    back - will ask you what kind if backdoor you would like to setup and will attempt to set one up
     createSUID - will attempt to create a file with SUID priveleges
+    createSGID - will attempt to create a file with SGID priveleges
     ==============================================    
         ''')
 
@@ -106,7 +106,43 @@ while True:
         else:
             for message in check:
                 print(message)
+#################END OF VULN ASSESSMENT COMMANDS##################
 
+#################START OF PERSISTENCE COMMANDS##################
+
+    elif str(command) == 'back':
+        print('''
+Backdoor Commands:
+
+return - to return to the normal program
+reverse - to be launched into the reverse shell setup
+sudo - to infect the sudoers file 
+
+        ''')
+
+        backCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' '>')
+        
+        if str(backCommand) == 'return':
+            print('returning you to the normal shell!')
+        
+        if str(backCommand) == 'reverse':
+            print('''
+Welcome to the reverse shell console!
+
+bash {ip} {port} - will attempt to setup a reverse bash shell on that specific port and listening on that specific IP
+nc {ip} {port} - will attempt to setup a reverse netcat shell on that specific port
+
+            ''')
+            revCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'reverse\033[0m' + '>')
+            revCommand = str(revCommand).split()
+            if len(revCommand) < 3:
+                print('you do not have enough arguments!')
+                revCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'reverse\033[0m' + '>')
+                revCommand = str(revCommand).split()
+            if revCommand[0] == 'bash':
+                print('Attempting to create bash reverse shell to ' + revCommand[1] + 'on port ' + revCommand[2] + '...')
+            
+#################END OF PERSISTENCE COMMANDS##################
 
     else:
         print('Command does not exist! try the "help" command')

@@ -72,3 +72,10 @@ def mem_check():
             messages.append('''[ ] Kernel exec shield randomization is enabled''')
         return messages
     except: return False
+
+
+def attempt_bash():
+    print('meme')
+
+def attempt_nc():
+    print('morememe')
