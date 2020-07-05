@@ -100,7 +100,13 @@ while True:
             print('======================================================')
 
     elif str(command) == 'memCheck':
-        print(mem_check())
+        check = mem_check()
+        if check == False:
+            print('There was an error checking for memory security measures')
+        else:
+            for message in check:
+                print(message)
+
 
     else:
         print('Command does not exist! try the "help" command')
