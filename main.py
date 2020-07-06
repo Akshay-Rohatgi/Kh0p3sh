@@ -130,9 +130,9 @@ while True:
             try:
                 if os.path.exists(sgidCommand):
                     os.system('chmod g+s ' + sgidCommand)
-                    print('SUID set!')
+                    print('SGID set!')
                 else: print('The file does not exist!')
-            except: print('there was an error trying to set the file with SgID permissions!')
+            except: print('there was an error trying to set the file with SGID permissions!')
         else:
             print('you have to enter something!')
 
