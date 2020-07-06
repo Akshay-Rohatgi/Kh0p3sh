@@ -15,7 +15,7 @@ print('''
                   | |                   
                   |_|                   
 ==========================================================
-
+Developed By Akshay Rohatgi [2020]
     ''')
 
 print('Welcome to Kh0p3sh, a commandline tool built for penetration testers.')
