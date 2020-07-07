@@ -6,6 +6,7 @@ To use simply clone the repository with:
 ```shell
 git clone https://github.com/Akshay-Rohatgi/Kh0p3sh
 ```
+- Only 2 files you really need when pentesting are func.py and main.py
 
 Prerequisites:
 ```
@@ -20,7 +21,14 @@ Information
   - Only has been tested on Debian-based operating systems
 
 ## Screenshots:
+
+### Main Console:
 ![main](media/main.png)
-![back](media/backdoor_show.png)
+
+### Backdoor function:
+![bd](media/cback.png)
+![bd](media/cback1.png)
+
+### Memory Check and SUID functions
 ![mem](media/memCheck.png)
 ![suid](media/suid.png)
