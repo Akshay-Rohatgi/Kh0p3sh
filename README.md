@@ -1,4 +1,4 @@
-# Kh0p3sh
+# Kh0p3sh :lock: 
 - An all in one tool for quick vulnerability assessment and hardening OR system weakening for persistence while pentesting on UNIX-based operating systems. Educational cybersecurity tool, this is not meant to be used for any black hat hacking. 
 
 
